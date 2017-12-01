@@ -1,0 +1,6 @@
+<?php View::content() ?>
+
+<p>Bienvenido <?= Session::get('apellido') . ' ' . Session::get('nombre')?>.</p>
+
+<?= Html::link('usuarios/editar/' . Session::get('id'), 'Administrar mis datos') ?>                
+<?= Html::link('login/salir', 'Salir') ?>                

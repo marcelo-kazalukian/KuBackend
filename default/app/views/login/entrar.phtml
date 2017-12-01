@@ -1,0 +1,7 @@
+<?php View::content() ?>
+<?= Form::open() ?>            
+    <?= Form::text('login', 'placeholder="usuario" required') ?>                
+    <?= Form::password('password', 'placeholder="password" required') ?>                   
+    <?= Form::hidden('mode') ?>
+    <?= Form::submit('Ingresar') ?>
+<?= Form::close() ?>    
