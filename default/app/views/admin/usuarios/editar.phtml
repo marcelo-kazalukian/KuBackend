@@ -1,0 +1,35 @@
+<!-- 
+    Si el perfil logueado es administrado de usuarios puede editar todos los campos.
+    Si el perfil no es administrador de usuarios solo puede editar algunos campos.    
+-->
+<?php View::content() ?>
+<?= Form::open() ?>    
+    <?= Form::hidden('Usuario.id') ?>
+    
+    <?php if ($esAdministradorUsuarios): ?>    
+        <?= Form::label('Nombre', 'usuario_nombre')?>
+        <?= Form::text('Usuario.nombre') ?>
+        <br>
+        <?= Form::label('Apellido', 'usuario_apellido')?>
+        <?= Form::text('Usuario.apellido') ?>
+        <br>
+        <?= Form::label('Perfil', 'usuario_perfil_id')?>
+        <?= Form::dbselect('Usuario.perfil_id', 'nombre', ['perfil', 'getPerfiles'])?>    
+        <br>
+        <!-- Si el login es por mail usar Form::email -->     
+        <?= Form::label('Login', 'usuario_login')?>
+        <?= Form::text('Usuario.login') ?>
+        <br>
+    <?php else: ?>
+        <?= Form::label('Password Actual', 'passwordActual')?>
+        <?= Form::password('passwordActual') ?>
+        <br>
+    <?php endif ?>
+    <?= Form::label('Nuevo Password', 'password1')?>
+    <?= Form::password('password1') ?>
+    <br>
+    <?= Form::label('Confirmar Nuevo Password', 'password2')?>
+    <?= Form::password('password2') ?>
+    <br>
+    <?= Form::submit('aceptar') ?>
+<?= Form::close() ?>
