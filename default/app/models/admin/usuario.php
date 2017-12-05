@@ -6,6 +6,10 @@ class Usuario extends ActiveRecord {
 
     //public $debug = true;
 
+    public function initialize() {
+        $this->belongs_to('perfil');
+    }
+
     /**
      * Se ejecuta antes de un create/update
      */
@@ -17,38 +21,6 @@ class Usuario extends ActiveRecord {
         }        
     }
 
-    public function before_update() {
-        // Verifica si el usuario logueado es administrador full de usuarios.
-        $esAdministradorUsr = (new Perfil)->esAdministradorUsuarios();                    
-        // Verifica si se está actualizando el password      
-        if (!empty($_POST['passwordActual']) || !empty($_POST['password1']) || !empty($_POST['password2'])) {  
-            if (!empty($_POST['password1']) && !empty($_POST['password2'])) {                    
-                if (trim($_POST['password1']) !== trim($_POST['password2'])) {
-                    Flash::error('Los passwords ingresadas no coinciden.');
-                    return 'cancel';
-                } 
-            }
-            else {
-                Flash::error('El nuevo password y su confirmación no coinciden.');
-                return 'cancel';
-            }            
-            // Si es administrador full de usuarios no necesita el password actual.
-            if (!$esAdministradorUsr) {
-                if (!empty($_POST['passwordActual'])) {
-                    if (!MyAuth::verificar_pass(trim($_POST['passwordActual']) . PASS_KEY, $usuario->password)) {
-                        Flash::error('El password actual no es correcto');
-                        return 'cancel';
-                    }                    
-                }
-                else {
-                    Flash::error('Debe completar el password actual');
-                    return 'cancel';
-                }                
-            }
-            $this->password = MyAuth::encriptar(trim($_POST['password1'] . PASS_KEY));    
-        }        
-        
-    }
 
     public function crear($datos){
         $obj = new Usuario($datos);        
@@ -81,6 +53,44 @@ class Usuario extends ActiveRecord {
         elseif ((new Perfil)->esAdministradorUsuarios()) {
             return true;
         }
+        return false;
+    }
+
+    public function cambiar_password($idUsuario, $pass, $pass1, $pass2) {
+        // Verifica si se está actualizando el password      
+        if ( !empty($pass1) || !empty($pass2) ) {  
+            if ( !empty($pass1) && !empty($pass2) ) {                    
+                if (trim($pass1) !== trim($pass2) ) {
+                    Flash::error('Los passwords ingresadas no coinciden.');
+                    return false;
+                } 
+            }
+            else {
+                Flash::error('El nuevo password y su confirmación no coinciden.');
+                return false;
+            }            
+            // Verifica si el usuario logueado es administrador full de usuarios.
+            $esAdministradorUsr = (new Perfil)->esAdministradorUsuarios();                    
+            
+            // Si es administrador full de usuarios no necesita el password actual.
+            // Si no es administrador full de usuarios significa que un usuario está cambiando su propia pass
+            $usuario = $this->find_first($idUsuario);
+            if (!$esAdministradorUsr) {
+                if (!empty($pass)) {
+                    if (!MyAuth::verificar_pass(trim($pass) . PASS_KEY, $usuario->password)) {
+                        Flash::error('El password actual no es correcto');
+                        return false;
+                    }                    
+                }
+                else {
+                    Flash::error('Debe completar el password actual');
+                    return false;
+                }                
+            }
+            $usuario->password = MyAuth::encriptar(trim($pass1 . PASS_KEY));    
+            return $usuario->update();
+        }                
+        Flash::error('Debe completar todos los campos.');
         return false;
     }
 }

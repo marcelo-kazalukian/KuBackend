@@ -2,5 +2,5 @@
 
 <p>Bienvenido <?= Session::get('apellido') . ' ' . Session::get('nombre')?>.</p>
 
-<?= Html::link('usuarios/editar/' . Session::get('id'), 'Administrar mis datos') ?>                
+<?= Html::link('admin/usuarios/cambiar_password/' . Session::get('id'), 'Cambiar mi password') ?>                
 <?= Html::link('login/salir', 'Salir') ?>                

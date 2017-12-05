@@ -54,7 +54,7 @@ class Perfil extends ActiveRecord {
                 return  'admin/usuarios';
                 break;            
             default:
-                return 'dashboard';
+                return 'admin/dashboard';
                 break;
         }
     }
@@ -72,8 +72,7 @@ class Perfil extends ActiveRecord {
                         ['label' => 'Perfiles', 'url' => 'admin/perfiles'],
                         ['label' => 'Salir', 'url' => 'login/salir']
                         ];
-                break;
-            
+                break;            
             default:
                 return [];
                 break;
@@ -99,7 +98,8 @@ class Perfil extends ActiveRecord {
      */
     public function getPerfilesYPadres() {
         return [
-            1 => null            
+            1 => null,
+            2 => null            
         ];
     }
 
@@ -120,7 +120,10 @@ class Perfil extends ActiveRecord {
         switch ($idPerfil) {
             case 1:
                 return []; // Perfil 1 tiene acceso a todo
-                break;            
+                break;        
+            case 2:
+                return [];
+                break;    
             default:
                 return ['Perfil inválido' => ['Sin permisos']];
                 break;
@@ -132,7 +135,8 @@ class Perfil extends ActiveRecord {
      */
     public function getTemplates() {
         return [
-            1 => 'default'            
+            1 => 'default',           
+            2 => 'default'
         ];
     }
 }

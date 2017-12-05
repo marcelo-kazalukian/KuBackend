@@ -18,7 +18,7 @@ Permite crear perfiles y asociar usuarios a los distintos perfiles. A cada perfi
 2. Definir la constante SESSION_KEY en el archivo default/app/libs/k_auth.php.
 3. Abrir el archivo /app/temp/db/start.sql generar la clave para los usuarios predeterminados del sistema (ver instrucciones en el archivo start.sql)
 4. Ingresar a la aplicación con el usuario generado en el punto 4 y ayudar a mejorarla :)
-5. En el archivo /app/models/perfil.php se definen los permisos de cada perfil.
+5. En el archivo /app/models/perfil.php se definen los permisos de cada perfil y que perfiles son administradores de usuarios del sistema.
 
 La aplicación solo es una base para comenzar a trabajar. 
 

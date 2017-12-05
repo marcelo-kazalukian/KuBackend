@@ -6,3 +6,4 @@ $menu = (new Perfil)->getMenuNavegacion();
 <?php foreach($menu as $item): ?>
     <?= Html::link($item['url'], $item['label']) ?>
 <?php endforeach ?>
+<br><br>
