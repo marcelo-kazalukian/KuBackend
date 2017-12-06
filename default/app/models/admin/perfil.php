@@ -98,8 +98,7 @@ class Perfil extends ActiveRecord {
      */
     public function getPerfilesYPadres() {
         return [
-            1 => null,
-            2 => null            
+            1 => null            
         ];
     }
 
@@ -120,10 +119,7 @@ class Perfil extends ActiveRecord {
         switch ($idPerfil) {
             case 1:
                 return []; // Perfil 1 tiene acceso a todo
-                break;        
-            case 2:
-                return [];
-                break;    
+                break;                    
             default:
                 return ['Perfil inválido' => ['Sin permisos']];
                 break;
@@ -135,8 +131,7 @@ class Perfil extends ActiveRecord {
      */
     public function getTemplates() {
         return [
-            1 => 'default',           
-            2 => 'default'
+            1 => 'default'
         ];
     }
 }
