@@ -3,4 +3,6 @@
 <p>Bienvenido <?= Session::get('apellido') . ' ' . Session::get('nombre')?>.</p>
 
 <?= Html::link('admin/usuarios/cambiar_password/' . Session::get('id'), 'Cambiar mi password') ?>                
+<?= Html::link('admin/usuarios/editar/' . Session::get('id'), 'Editar datos') ?>              
+
 <?= Html::link('login/salir', 'Salir') ?>                

@@ -47,6 +47,9 @@ class UsuariosController extends ScaffoldController {
             }
             //Aplicando la autocarga de objeto, para comenzar la edición
             $this->{$this->model} = (new $this->model)->find((int) $id);            
+
+            // Verifica si el usuario logueado es administrador de usuarios
+            $this->esAdministradorUsuarios = (new Perfil)->esAdministradorUsuarios();
         }
         else {
             Flash::error('No tiene permisos para editar al usuario.');

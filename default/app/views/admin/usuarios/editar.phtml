@@ -1,18 +1,20 @@
 <?php View::content() ?>
 <?= Form::open() ?>    
     <?= Form::hidden('Usuario.id') ?>
-    <?= Form::label('Nombre', 'usuario_nombre')?>
-    <?= Form::text('Usuario.nombre') ?>
-    <br>
-    <?= Form::label('Apellido', 'usuario_apellido')?>
-    <?= Form::text('Usuario.apellido') ?>
-    <br>
-    <?= Form::label('Perfil', 'usuario_perfil_id')?>
-    <?= Form::dbselect('Usuario.perfil_id', 'nombre', ['perfil', 'getPerfiles'])?>    
-    <br>
-    <!-- Si el login es por mail usar Form::email -->     
-    <?= Form::label('Login', 'usuario_login')?>
-    <?= Form::text('Usuario.login') ?>
-    <br>    
+    <?php if($esAdministradorUsuarios): ?>
+        <?= Form::label('Nombre', 'usuario_nombre')?>
+        <?= Form::text('Usuario.nombre') ?>
+        <br>
+        <?= Form::label('Apellido', 'usuario_apellido')?>
+        <?= Form::text('Usuario.apellido') ?>
+        <br>
+        <?= Form::label('Perfil', 'usuario_perfil_id')?>
+        <?= Form::dbselect('Usuario.perfil_id', 'nombre', ['perfil', 'getPerfiles'])?>    
+        <br>
+        <!-- Si el login es por mail usar Form::email -->     
+        <?= Form::label('Login', 'usuario_login')?>
+        <?= Form::text('Usuario.login') ?>
+        <br>    
+    <?php endif ?> 
     <?= Form::submit('aceptar') ?>
 <?= Form::close() ?>
